@@ -34,7 +34,11 @@ pipeline {
                 expression { false } // temporarily disable build
             }
             steps {
-                // No build commands needed if you're not packaging your app
+                steps {
+                bat '''
+                pip install build
+                '''
+            }
             }
         }
 
