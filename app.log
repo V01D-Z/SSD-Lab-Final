@@ -1,0 +1,28 @@
+[2024-12-28 14:29:02,070] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2024-12-28 14:29:02,070] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2024-12-28 14:29:02,073] INFO in _internal:  * Restarting with stat
+[2024-12-28 14:29:02,774] WARNING in _internal:  * Debugger is active!
+[2024-12-28 14:29:02,780] INFO in _internal:  * Debugger PIN: 445-915-891
+[2024-12-28 14:29:41,913] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:29:41] "GET / HTTP/1.1" 200 -
+[2024-12-28 14:29:42,467] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:29:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2024-12-28 14:29:53,784] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:29:53] "GET /login HTTP/1.1" 200 -
+[2024-12-28 14:29:59,187] WARNING in app: Failed login attempt for user: V01D-Z
+[2024-12-28 14:29:59,187] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:29:59] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+[2024-12-28 14:30:02,840] WARNING in app: Failed login attempt for user: V01D-Z
+[2024-12-28 14:30:02,840] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:30:02] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+[2024-12-28 14:30:05,963] WARNING in app: Failed login attempt for user: V01D-Z
+[2024-12-28 14:30:05,963] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:30:05] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+[2024-12-28 14:30:20,763] WARNING in app: Failed login attempt for user: V01D-Z
+[2024-12-28 14:30:20,763] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:30:20] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+[2024-12-28 14:30:25,380] INFO in extension: ratelimit 5 per 1 minute (127.0.0.1) exceeded at endpoint: login
+[2024-12-28 14:30:25,380] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:30:25] "[31m[1mPOST /login HTTP/1.1[0m" 429 -
+[2024-12-28 14:32:59,198] WARNING in app: Failed login attempt for user: V01D-Z
+[2024-12-28 14:32:59,198] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:32:59] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+[2024-12-28 14:33:06,234] INFO in _internal: 127.0.0.1 - - [28/Dec/2024 14:33:06] "GET / HTTP/1.1" 200 -
+[2024-12-28 14:51:16,525] INFO in _internal:  * Detected change in 'D:\\1. Files\\VS Code Project Folder\\Git linked\\SSD-Lab-Final\\app.py', reloading
+[2024-12-28 14:51:16,743] INFO in _internal:  * Restarting with stat
+[2024-12-28 14:51:18,311] WARNING in _internal:  * Debugger is active!
+[2024-12-28 14:51:18,323] INFO in _internal:  * Debugger PIN: 445-915-891
+[2024-12-28 14:51:30,046] INFO in _internal:  * Detected change in 'D:\\1. Files\\VS Code Project Folder\\Git linked\\SSD-Lab-Final\\app.py', reloading
+[2024-12-28 14:51:30,157] INFO in _internal:  * Restarting with stat
