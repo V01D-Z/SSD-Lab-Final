@@ -1,16 +1,16 @@
 pipeline {
-    agent any
+    agent any  // or agent { label 'windows' } if you have a Windows label
 
     stages {
+
         // 1. Clone the Repo
         stage('Clone the Repo') {
             steps {
-                // If your repo is public, no credentials needed.
-                // Otherwise, configure Jenkins credentials for private repos.
+                // If your repo is private, set up Jenkins credentials
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: 'main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/V01D-Z/SSD-Lab-Final.git']]
+                    branches: [[ name: 'main' ]],
+                    userRemoteConfigs: [[ url: 'https://github.com/V01D-Z/SSD-Lab-Final.git' ]]
                 ])
             }
         }
@@ -18,71 +18,64 @@ pipeline {
         // 2. Install Dependencies
         stage('Install Dependencies') {
             steps {
-                // Ensure Python is available on the Jenkins agent
-                sh 'pip install --upgrade pip'
-                sh 'pip install -r requirements.txt'
+                // Use 'bat' instead of 'sh' on Windows
+                bat '''
+                python --version
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
             }
         }
 
         // 3. Run Unit Tests
         stage('Run Unit Tests') {
             steps {
-                // Example with pytest
-                sh 'pytest tests --junitxml=test_results.xml'
+                // Run tests using bat
+                // Ensure pytest is in your requirements.txt
+                bat 'pytest tests --junitxml=test_results.xml'
             }
         }
 
         // 4. Build (Package) the Application
-        //    Using standard Python packaging to create distribution artifacts:
-        //    e.g. a wheel or source distribution.
         stage('Build Application') {
             steps {
-                // If you have a setup.py:
-                sh 'pip install build'
-                // This command will create a 'dist/' folder containing .whl or .tar.gz
-                sh 'python -m build'
+                // Example using Python's build library or setup.py
+                bat '''
+                pip install build
+                python -m build
+                '''
             }
         }
 
         // 5. Deploy the Application
-        //    There are several ways to do this without Docker:
-        //    A) Run the app directly on the Jenkins agent (for demo).
-        //    B) SCP the package to a remote server and install/run it.
-        //    C) Use a Jenkins plugin like "Publish Over SSH" or "SSH Pipeline Steps".
         stage('Deploy Application') {
             steps {
-                script {
-                    // Example A: Run the Flask app locally in the background (not recommended for production)
-                    // You might want to kill old processes or use something like screen/tmux.
-                    // This is purely for demonstration.
+                // Example 1: Run the Flask app locally in the background (demo only).
+                // Kills any existing python app process, then restarts.
+                bat '''
+                for /f "tokens=5" %%a in ('netstat -ano ^| findstr :5000 ^| findstr LISTENING') do (
+                    taskkill /F /PID %%a
+                ) || echo "No existing Python app found."
 
-                    // Stop any running Flask app (if you have a custom script, call it here)
-                    sh 'pkill -f "python app.py" || true'
-
-                    // Run your app in the background
-                    // Note: This will hold the port 5000 open on the Jenkins node
-                    sh 'nohup python app.py &> flask_app.log &'
-                    
-                    // Example B: Deploy to a remote server (pseudo-code):
-                    /*
-                    withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED_ID', keyFileVariable: 'identity')]) {
-                        sh """
-                        scp -i $identity dist/YourProject-0.1.0-py3-none-any.whl user@remote.host:/home/user/
-                        ssh -i $identity user@remote.host \\
-                            'pip install --upgrade --force-reinstall /home/user/YourProject-0.1.0-py3-none-any.whl && \\
-                             pkill -f "python app.py" || true && \\
-                             nohup python -m your_flask_package &> app.log &'
-                        """
-                    }
-                    */
-                }
+                start /B python app.py
+                '''
+                
+                // Example 2 (Commented Out):
+                // Deploy to a remote server using xcopy/robocopy or SSH 
+                // if you have an SSH client on Windows. Example:
+                /*
+                bat '''
+                scp -i path\\to\\key dist\\YourProject-0.1.0-py3-none-any.whl user@remote.host:/home/user
+                ssh -i path\\to\\key user@remote.host "pip install --upgrade /home/user/YourProject-0.1.0-py3-none-any.whl && nohup python -m your_flask_package &"
+                '''
+                */
             }
         }
     }
 
     post {
         always {
-            // Archive test results so Jenkins can show them in the job
+            // Look for JUnit XML test reports
             junit 'test_results.xml'
         }
         success {
