@@ -31,13 +31,10 @@ pipeline {
 
         stage('Build Application') {
             when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+                expression { false } // temporarily disable build
             }
             steps {
-                bat '''
-                pip install build
-                python -m build
-                '''
+                // No build commands needed if you're not packaging your app
             }
         }
 
