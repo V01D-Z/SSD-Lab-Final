@@ -26,3 +26,5 @@
 [2024-12-28 14:51:18,323] INFO in _internal:  * Debugger PIN: 445-915-891
 [2024-12-28 14:51:30,046] INFO in _internal:  * Detected change in 'D:\\1. Files\\VS Code Project Folder\\Git linked\\SSD-Lab-Final\\app.py', reloading
 [2024-12-28 14:51:30,157] INFO in _internal:  * Restarting with stat
+[2024-12-28 14:51:31,440] WARNING in _internal:  * Debugger is active!
+[2024-12-28 14:51:31,454] INFO in _internal:  * Debugger PIN: 445-915-891
